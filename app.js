@@ -7,8 +7,8 @@ Product.allProducts = [];
 function Product(name, filepath){
   this.name = name;
   this.filepath = filepath;
-  this.total = 0;
-  this.displayTotal = 0;
+  this.votes = [];
+  this.displayTotal = [];
   Product.allProducts.push(this);
 };
 
@@ -16,7 +16,7 @@ function Product(name, filepath){
 new Product('Bag', 'img/bag.jpg');
 new Product('Banana', 'img/banana.jpg');
 new Product('Bathroom', 'img/bathroom.jpg');
-new Product('boots', 'img/boots.jpg');
+new Product('Boots', 'img/boots.jpg');
 new Product('Breakfast', 'img/breakfast.jpg');
 new Product('Bubble Gum', 'img/bubblegum.jpg');
 new Product('Chair', 'img/chair.jpg');
@@ -38,65 +38,93 @@ new Product('Wine Glass', 'img/wine-glass.jpg');
 var previousNumbers = [];
 
 var imgBox = document.getElementById('image-box');
+
+var clicks = 0;
+
 function randomImg() {
+  if (clicks < 24) {
+
   // All numbers are equal so the do while loop with activate
-  var idOne = 0;
-  var idTwo = 0;
-  var idThree = 0;
-  console.log('first pre numbers: ' + previousNumbers);
-    // run this loop until numbers do not match previous numbers, or eachother
-  do {
-    var idOne = Math.floor(Math.random() * Product.allProducts.length);
-  } while(idOne === idThree || idOne === idTwo || previousNumbers.includes(idOne));
-  console.log(idOne);
+    var idOne = 0;
+    var idTwo = 0;
+    var idThree = 0;
+    console.log('first pre numbers: ' + previousNumbers);
+      // run this loop until numbers do not match previous numbers, or eachother
+    do {
+      var idOne = Math.floor(Math.random() * Product.allProducts.length);
+    } while(idOne === idThree || idOne === idTwo || previousNumbers.includes(idOne));
+    console.log(idOne);
 
-  do {
-    var idTwo = Math.floor(Math.random() * Product.allProducts.length);
-  } while(idTwo === idOne || idTwo === idThree || previousNumbers.includes(idTwo));
-  console.log(idTwo);
+    do {
+      var idTwo = Math.floor(Math.random() * Product.allProducts.length);
+    } while(idTwo === idOne || idTwo === idThree || previousNumbers.includes(idTwo));
+    console.log(idTwo);
 
-  do {
-    var idThree = Math.floor(Math.random() * Product.allProducts.length);
-  } while(idThree === idOne || idThree === idTwo || previousNumbers.includes(idThree));
-  console.log(idThree);
+    do {
+      var idThree = Math.floor(Math.random() * Product.allProducts.length);
+    } while(idThree === idOne || idThree === idTwo || previousNumbers.includes(idThree));
+    console.log(idThree);
 
-//store new random numbers into an array
-  var newNumbers = [idOne, idTwo, idThree];
-  console.log('New Numbers ' + newNumbers);
+  //store new random numbers into an array
+    var newNumbers = [idOne, idTwo, idThree];
+    console.log('New Numbers ' + newNumbers);
 
-  function upDisplayTotal() {
-    var display = Product.allProducts[randomIndex].displayTotal;
-    display++;
-  };
-
-  for( var i = 0; i < 3; i++) {
-    var randomIndex = newNumbers[i];
-    var imgEl = document.createElement('img');
-    imgEl.name = Product.allProducts[randomIndex].name;
-    imgEl.src = Product.allProducts[randomIndex].filepath;
-    imgBox.appendChild(imgEl);
-    upDisplayTotal();
-    console.log('Display total for ' + Product.allProducts[randomIndex].name + ' is ' + Product.allProducts[randomIndex].displayTotal);
-    console.log('Total is: ' + Product.allProducts[randomIndex].total);
-  };
-
-
-  function vote() {
-    var vote = Product.allProducts[randomIndex].total;
-    vote++;
-  };
-
-  Product.allProducts[randomIndex].src.addEventListener('click', vote);
-
-  previousNumbers = newNumbers.slice(0);
-  console.log('Prev: ' + previousNumbers);
+    for( var i = 0; i < 3; i++) {
+      var randomIndex = newNumbers[i];
+      var imgEl = document.getElementById([i]);
+      imgEl.name = Product.allProducts[randomIndex].name;
+      //Adds a tally to objects total
+      Product.allProducts[randomIndex].displayTotal.push('I');
+      imgEl.src = Product.allProducts[randomIndex].filepath;
+      console.log('Display total for ' + Product.allProducts[randomIndex].name + ' is ' + Product.allProducts[randomIndex].displayTotal.length);
+    };
+    previousNumbers = newNumbers.slice(0);
+    console.log('Prev: ' + previousNumbers);
+  }
+  if (clicks === 24){
+    var products = document.getElementById('products');
+    var results = document.getElementById('results');
+    var h3El = document.createElement('h3');
+    h3El.textContent = ('Results');
+    products.appendChild(h3El);
+    for(var l = 0; l < Product.allProducts.length; l++){
+      var liEl = document.createElement('li');
+      liEl.textContent = Product.allProducts[l].name + ' was viewed ' + Product.allProducts[l].displayTotal.length + ' times and voted on ' + Product.allProducts[l].votes.length + ' times.';
+      console.log(liEl);
+      products.appendChild(liEl);
+    }
+  }
 };
 randomImg();
 
-//Clears last 3 images from the site
-function clearRow(){
-  document.getElementById('image-box').innerHTML = "";
-};
 
-imgBox.addEventListener('click', clearRow);
-imgBox.addEventListener('click', randomImg);
+//Set event listener var names
+var imgElOne = document.getElementById(0);
+var imgElTwo = document.getElementById(1);
+var imgElThree = document.getElementById(2);
+
+//set these first to collect votes
+imgElOne.addEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes.push('I'); });
+
+imgElTwo.addEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes.push('I'); });
+
+imgElThree.addEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes.push('I'); });
+
+  debugger;
+//call this after to reset images
+imgElOne.addEventListener('click', randomImg);
+
+imgElTwo.addEventListener('click', randomImg);
+
+imgElThree.addEventListener('click', randomImg);
+
+imgElOne.addEventListener('click', count);
+
+imgElTwo.addEventListener('click', count);
+
+imgElThree.addEventListener('click', count);
+
+function count(){
+  clicks++;
+};
+console.log('Clicks are at ' + clicks);

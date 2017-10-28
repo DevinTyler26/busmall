@@ -1,24 +1,10 @@
-// All numbers are equal
-var idOne = 0;
-var idTwo = 0;
-var idThree = 0;
-var randomIndex = [];
-  // run this loop until numberOne is different than numberThree
-do {
-  var idOne = Math.floor(Math.random() * Product.allProducts.length);
-} while(idOne === idThree || idOne === idTwo);
-randomIndex.push(idOne);
-console.log(idOne);
-
-do {
-  var idTwo = Math.floor(Math.random() * Product.allProducts.length);
-} while(idTwo === idOne || idTwo === idThree);
-randomIndex.push(idTwo);
-console.log(idTwo);
-
-do {
-  var idThree = Math.floor(Math.random() * Product.allProducts.length);
-} while(idThree === idOne || idThree === idTwo);
-randomIndex.push(idThree);
-console.log(idThree);
-console.log(randomIndex);
+var products = document.getElementById('products');
+var results = document.getElementById('results');
+var h3El = document.createElement('h3');
+h3El.textContent = ('Results');
+products.appendChild(h3El);
+for(var l = 0; l < Product.allProducts.length; l++){
+  var liEl = document.createElement('li');
+  liEl.textContent = Product.allProducts[l].name + ': ' + Product.allProducts[l].votes + ' votes';
+  console.log(liEl);
+  products.appendChild(liEl);
