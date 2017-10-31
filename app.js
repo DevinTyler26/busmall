@@ -97,7 +97,6 @@ function randomImg() {
 };
 randomImg();
 
-
 //Set event listener var names
 var imgElOne = document.getElementById(0);
 var imgElTwo = document.getElementById(1);
@@ -105,23 +104,15 @@ var imgElThree = document.getElementById(2);
 
 //set these first to collect votes
 imgElOne.addEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes.push('I'); });
-
 imgElTwo.addEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes.push('I'); });
-
 imgElThree.addEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes.push('I'); });
 
-  debugger;
 //call this after to reset images
 imgElOne.addEventListener('click', randomImg);
-
 imgElTwo.addEventListener('click', randomImg);
-
 imgElThree.addEventListener('click', randomImg);
-
 imgElOne.addEventListener('click', count);
-
 imgElTwo.addEventListener('click', count);
-
 imgElThree.addEventListener('click', count);
 
 function count(){
