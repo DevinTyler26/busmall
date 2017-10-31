@@ -32,8 +32,6 @@ new Product('Wine Glass', 'img/wine-glass.jpg');
 
 var previousNumbers = [];
 
-var imgBox = document.getElementById('image-box');
-
 var clicks = 0;
 
 function randomImg() {
@@ -62,7 +60,6 @@ function randomImg() {
       imgEl.name = Product.allProducts[randomIndex].name;
       Product.allProducts[randomIndex].displayTotal.push('I');
       imgEl.src = Product.allProducts[randomIndex].filepath;
-      console.log('Display total for ' + Product.allProducts[randomIndex].name + ' is ' + Product.allProducts[randomIndex].displayTotal.length);
     };
     previousNumbers = newNumbers.slice(0);
   }
@@ -98,4 +95,3 @@ imgElThree.addEventListener('click', count);
 function count(){
   clicks++;
 };
-console.log('Clicks are at ' + clicks);
