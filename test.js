@@ -1,10 +1,26 @@
-var products = document.getElementById('products');
-var results = document.getElementById('results');
-var h3El = document.createElement('h3');
-h3El.textContent = ('Results');
-products.appendChild(h3El);
-for(var l = 0; l < Product.allProducts.length; l++){
-  var liEl = document.createElement('li');
-  liEl.textContent = Product.allProducts[l].name + ': ' + Product.allProducts[l].votes + ' votes';
-  console.log(liEl);
-  products.appendChild(liEl);
+var data = [12, 19, 3, 5, 2, 3];
+//this is the name for each product
+var labelColors = ['red', 'blue', 'yellow', 'green', 'purple', 'orange'];
+
+var ctx = document.getElementById('chart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: labelColors,
+    datasets: [{
+      label: '# of Votes',
+      data: data,
+      backgroundColor: labelColors
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});

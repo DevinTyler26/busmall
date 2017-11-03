@@ -3,11 +3,56 @@
 }
 
 body{
-  width: 70%;
+  width: 88%;
+  margin: 0 auto;
 }
 
 img{
-  width: 20% ;
-  margin: 0 auto;
-  padding: 40px;
+  max-width: 100%;
+  max-height: 100%;
+  margin: auto;
+}
+
+.middle{
+  display: inline-block;
+  width: 100%;
+}
+
+#results-table{
+  border: 1px solid grey;
+  min-height: 400px;
+  display: inline-block;
+  width: 42%;
+}
+
+#image-box{
+  display: inline-block;
+  width: 50%;
+}
+
+.one{
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid grey;
+  border-radius: 25px;
+  width: 200px;
+  height: 200px;
+}
+
+.two{
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid grey;
+  border-radius: 25px;
+  width: 200px;
+  height: 200px;
+}
+
+.three{
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid grey;
+  border-radius: 25px;
+  width: 200px;
+  height: 200px;
 }

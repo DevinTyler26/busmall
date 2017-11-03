@@ -4,7 +4,7 @@ Product.allProducts = [];
 function Product(name, filepath){
   this.name = name;
   this.filepath = filepath;
-  this.votes = [];
+  this.votes = 0;
   this.displayTotal = [];
   Product.allProducts.push(this);
 };
@@ -63,7 +63,20 @@ function randomImg() {
     };
     previousNumbers = newNumbers.slice(0);
   }
-  if (clicks === 24){
+
+  var dataVotes = [];
+  var labelProducts = [];
+
+  if (clicks === 25){
+    imgElOne.removeEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes.push('I'); });
+    imgElTwo.removeEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes.push('I'); });
+    imgElThree.removeEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes.push('I'); });
+    imgElOne.removeEventListener('click', randomImg);
+    imgElTwo.removeEventListener('click', randomImg);
+    imgElThree.removeEventListener('click', randomImg);
+    imgElOne.removeEventListener('click', count);
+    imgElTwo.removeEventListener('click', count);
+    imgElThree.removeEventListener('click', count);
     var products = document.getElementById('products');
     var results = document.getElementById('results');
     var h3El = document.createElement('h3');
@@ -74,7 +87,46 @@ function randomImg() {
       liEl.textContent = Product.allProducts[l].name + ' was viewed ' + Product.allProducts[l].displayTotal.length + ' times and voted on ' + Product.allProducts[l].votes.length + ' times.';
       products.appendChild(liEl);
     }
-  }
+    function countVotes(){
+      for (var i = 0; i < Product.allProducts.length; i++) {
+        var votes = Product.allProducts[i].votes;
+        dataVotes.push(votes);
+      }
+    };
+    countVotes();
+
+    function graphNames() {
+      for (var i = 0; i < Product.allProducts.length; i++) {
+        var names = Product.allProducts[i].name
+        labelProducts.push(names);
+      }
+    };
+    graphNames();
+
+  var ctx = document.getElementById('graph').getContext('2d');
+
+  var myGraph = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labelProducts,
+      datasets: [{
+        label: '# of Votes',
+        data: dataVotes,
+        backgroundColor: labelProducts
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
+
 };
 randomImg();
 
@@ -82,9 +134,9 @@ var imgElOne = document.getElementById(0);
 var imgElTwo = document.getElementById(1);
 var imgElThree = document.getElementById(2);
 
-imgElOne.addEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes.push('I'); });
-imgElTwo.addEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes.push('I'); });
-imgElThree.addEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes.push('I'); });
+imgElOne.addEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes += 1;});
+imgElTwo.addEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes += 1;});
+imgElThree.addEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes += 1;});
 imgElOne.addEventListener('click', randomImg);
 imgElTwo.addEventListener('click', randomImg);
 imgElThree.addEventListener('click', randomImg);
