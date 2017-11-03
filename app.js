@@ -86,7 +86,11 @@ function randomImg() {
       var liEl = document.createElement('li');
       liEl.textContent = Product.allProducts[l].name + ' was viewed ' + Product.allProducts[l].displayTotal + ' times and voted on ' + Product.allProducts[l].votes + ' times.';
       products.appendChild(liEl);
+      var product = Product.allProducts;
+      localStorage.setItem('Product', JSON.stringify(product));
+      var retrievedObject = localStorage.getItem('Product');
     }
+
     function countVotes(){
       for (var i = 0; i < Product.allProducts.length; i++) {
         var votes = Product.allProducts[i].votes;
@@ -143,3 +147,10 @@ imgElThree.addEventListener('click', randomImg);
 imgElOne.addEventListener('click', function() {clicks++;});
 imgElTwo.addEventListener('click', function() {clicks++;});
 imgElThree.addEventListener('click', function() {clicks++;});
+
+var clearLocalStorage = document.getElementById('clearStorage');
+
+clearLocalStorage.addEventListener('click', function() {
+  console.log('localStorage is cleared');
+  localStorage.clear();
+});
