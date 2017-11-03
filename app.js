@@ -5,7 +5,7 @@ function Product(name, filepath){
   this.name = name;
   this.filepath = filepath;
   this.votes = 0;
-  this.displayTotal = [];
+  this.displayTotal = 0;
   Product.allProducts.push(this);
 };
 
@@ -58,7 +58,7 @@ function randomImg() {
       var randomIndex = newNumbers[i];
       var imgEl = document.getElementById([i]);
       imgEl.name = Product.allProducts[randomIndex].name;
-      Product.allProducts[randomIndex].displayTotal.push('I');
+      Product.allProducts[randomIndex].displayTotal += 1;
       imgEl.src = Product.allProducts[randomIndex].filepath;
     };
     previousNumbers = newNumbers.slice(0);
@@ -67,16 +67,16 @@ function randomImg() {
   var dataVotes = [];
   var labelProducts = [];
 
-  if (clicks === 25){
-    imgElOne.removeEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes.push('I'); });
-    imgElTwo.removeEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes.push('I'); });
-    imgElThree.removeEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes.push('I'); });
+  if (clicks === 24){
+    imgElOne.removeEventListener('click', function() {Product.allProducts[previousNumbers[0]].votes += 1;});
+    imgElTwo.removeEventListener('click', function() {Product.allProducts[previousNumbers[1]].votes += 1;});
+    imgElThree.removeEventListener('click', function() {Product.allProducts[previousNumbers[2]].votes += 1;});
     imgElOne.removeEventListener('click', randomImg);
     imgElTwo.removeEventListener('click', randomImg);
     imgElThree.removeEventListener('click', randomImg);
-    imgElOne.removeEventListener('click', count);
-    imgElTwo.removeEventListener('click', count);
-    imgElThree.removeEventListener('click', count);
+    imgElOne.removeEventListener('click', function() {clicks++;});
+    imgElTwo.removeEventListener('click', function() {clicks++;});
+    imgElThree.removeEventListener('click', function() {clicks++;});
     var products = document.getElementById('products');
     var results = document.getElementById('results');
     var h3El = document.createElement('h3');
@@ -84,7 +84,7 @@ function randomImg() {
     products.appendChild(h3El);
     for(var l = 0; l < Product.allProducts.length; l++){
       var liEl = document.createElement('li');
-      liEl.textContent = Product.allProducts[l].name + ' was viewed ' + Product.allProducts[l].displayTotal.length + ' times and voted on ' + Product.allProducts[l].votes.length + ' times.';
+      liEl.textContent = Product.allProducts[l].name + ' was viewed ' + Product.allProducts[l].displayTotal + ' times and voted on ' + Product.allProducts[l].votes + ' times.';
       products.appendChild(liEl);
     }
     function countVotes(){
@@ -140,10 +140,6 @@ imgElThree.addEventListener('click', function() {Product.allProducts[previousNum
 imgElOne.addEventListener('click', randomImg);
 imgElTwo.addEventListener('click', randomImg);
 imgElThree.addEventListener('click', randomImg);
-imgElOne.addEventListener('click', count);
-imgElTwo.addEventListener('click', count);
-imgElThree.addEventListener('click', count);
-
-function count(){
-  clicks++;
-};
+imgElOne.addEventListener('click', function() {clicks++;});
+imgElTwo.addEventListener('click', function() {clicks++;});
+imgElThree.addEventListener('click', function() {clicks++;});
