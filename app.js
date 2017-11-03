@@ -65,6 +65,7 @@ function randomImg() {
   }
 
   var dataVotes = [];
+  var dataViews = [];
   var labelProducts = [];
 
   if (clicks === 24){
@@ -99,6 +100,14 @@ function randomImg() {
     };
     countVotes();
 
+    function countViews(){
+      for (var i = 0; i < Product.allProducts.length; i++) {
+        var views = Product.allProducts[i].displayTotal;
+        dataViews.push(views);
+      }
+    };
+    countViews();
+
     function graphNames() {
       for (var i = 0; i < Product.allProducts.length; i++) {
         var names = Product.allProducts[i].name
@@ -116,7 +125,12 @@ function randomImg() {
       datasets: [{
         label: '# of Votes',
         data: dataVotes,
-        backgroundColor: labelProducts
+        backgroundColor: 'blue'
+      },
+      {
+        label: '# of Views',
+        data: dataViews,
+        backgroundColor: 'grey'
       }]
     },
     options: {
